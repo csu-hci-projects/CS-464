@@ -7,7 +7,7 @@ def userChoice(prompt, c):
        c - a tuple containing list of valid input choices."""
     userInput = raw_input(prompt)
     while (userInput not in c):
-        print prompt
+        print(prompt)
         userInput = raw_input(prompt)
     return userInput
 
@@ -27,9 +27,9 @@ def randomword(theList):
 
 def rules():
     """Rules of the game"""
-    print "Welcome"
-    print "Test your typing skills..."
-    print "Type as many words as you can in under 60 seconds and get your RAW words per minute and actual words per minute"
+    print("Welcome")
+    print("Test your typing skills...")
+    print("Type as many words as you can in under 60 seconds and get your RAW words per minute and actual words per minute")
 
 def play():
     """Play function of the game."""
@@ -42,8 +42,8 @@ def play():
         word = randomword(listi)
         listi.remove(word)
         remtime = 60.0 - usedtime
-        print remtime
-        print word
+        print(remtime)
+        print(word)
         start = time.clock()
         inp = raw_input("Enter a word:")
         end = time.clock()
@@ -51,14 +51,14 @@ def play():
             cwords += 1
         usedtime += (end - start)
         twords += 1
-    print "TIMES UP!"
-    print "Total no. of words:", twords
+    print("TIMES UP!")
+    print("Total no. of words:", twords)
     incwords=twords - cwords
-    print "No. of incorrect words", incwords
+    print("No. of incorrect words", incwords)
     raw=(twords/usedtime) * 60.0
-    print "RAW words per minute %.2f" %raw
+    print("RAW words per minute %.2f" %raw)
     actual=(cwords/usedtime) * 60.0
-    print "Actual words per minute: %.2f"%actual
+    print("Actual words per minute: %.2f"%actual)
     scores=scorelist()
     addscore(scores,actual)
     writescore(scores)
@@ -73,7 +73,7 @@ def menu():
     choices = ("P", "p", "R", "r", "D", "d", "Q", "q")
     c = userChoice(prompt, choices)
     if c=='q' or c=='Q':
-            print "You quit..."
+            print("You quit...")
     else:
         while c!='q' or c!='Q':
             if (c=='p') or (c=='P'):
@@ -83,6 +83,13 @@ def menu():
                 rules()
                 c='q'
 
+def main():
+    rules()
+    play()
+    menu()
+
+if __name__ == "__main__":
+    main()
 ## --------------------------------------------------------##
 ## HIGHSCORE FUNCTIONS!
 
@@ -90,7 +97,7 @@ def scorelist():
     """returns the list of scores"""
     scores=[]
     try:
-        fout = open("highscore.csv", "r")    
+        fout = open("highscore.csv", "r")   
         for entry in fout:
             entry=entry.strip()
             entrie=entry.split(",")
@@ -100,7 +107,7 @@ def scorelist():
         return scores
     except IOError as e:
         return scores
-        
+
 def bubbleSort(theList):
     """Bubblesorts the list"""
     lastIndex = len(theList)-2
@@ -126,19 +133,19 @@ def eligible(theList,score):
 def addscore(theList, score):
     """adds the eligible score to theList"""
     if eligible(theList, score):
-        print "Congrats! You made the top 10."
+        print("Congrats! You made the top 10.")
         name = raw_input("What is your name: ")
         entry=(name, score)
         theList.append(entry)
         bubbleSort(theList)
-        print theList
+        print(theList)
 
         if len(theList)>10:
             #only keep top 10 values
             theList.pop()
         return theList
     else:
-        print "BOOOOOOOO!"
+        print("BOOOOOOOO!")
         return theList
 
 def writescore(theList):
