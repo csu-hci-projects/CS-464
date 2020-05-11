@@ -86,7 +86,7 @@ def menu():
 def main():
     rules()
     play()
-    menu()
+    
 
 if __name__ == "__main__":
     main()
