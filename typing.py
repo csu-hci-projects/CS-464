@@ -33,35 +33,24 @@ def rules():
 
 def play():
     """Play function of the game."""
-    usedtime = 0.0
-    remtime = 0.0
+    t_end = time.time() + 60
     twords = 0
     cwords = 0
     listi = makelist()
-    while (usedtime <= 60):
+    while (time.time() < t_end):
         word = randomword(listi)
         listi.remove(word)
-        remtime = 60.0 - usedtime
-        print(remtime)
         print(word)
-        start = time.clock()
         inp = raw_input("Enter a word:")
-        end = time.clock()
         if (inp == word):
             cwords += 1
-        usedtime += (end - start)
         twords += 1
     print("TIMES UP!")
     print("Total no. of words:", twords)
     incwords=twords - cwords
-    print("No. of incorrect words", incwords)
-    raw=(twords/usedtime) * 60.0
-    print("RAW words per minute %.2f" %raw)
-    actual=(cwords/usedtime) * 60.0
-    print("Actual words per minute: %.2f"%actual)
-    scores=scorelist()
-    addscore(scores,actual)
-    writescore(scores)
+    print("No. of correct words:", cwords)
+    print("Number of inccrrect words:", incwords)
+
 
 def menu():
     """Menu for the game"""
@@ -86,7 +75,7 @@ def menu():
 def main():
     rules()
     play()
-    
+
 
 if __name__ == "__main__":
     main()
@@ -156,3 +145,4 @@ def writescore(theList):
         record= entry[0]+","+str(entry[1])+"\n"
         fout.write(record)
     fout.close()
+
